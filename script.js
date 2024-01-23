@@ -38,3 +38,24 @@ function efectoHabilidades(){
 window.onscroll = function(){
     efectoHabilidades()
 }
+document.addEventListener('DOMContentLoaded', function () {
+    // Obtén el botón y agrega un evento de clic
+    var botonDescargarCV = document.getElementById('descargarCV');
+    botonDescargarCV.addEventListener('click', descargarCV);
+});
+
+function descargarCV() {
+    // Reemplaza "Tu_CV_Nombre.pdf" con el nombre correcto de tu CV
+    var nombreCV = 'Hector_Ricardo_Lopez_Pepa_CV.pdf';
+
+    // La ruta al CV relativa al HTML
+    var rutaCV = 'img/Hector_Ricardo_Lopez_Pepa_CV.pdf' + nombreCV;
+
+    // Crea un elemento <a> temporal y simula un clic para iniciar la descarga
+    var linkTemporal = document.createElement('a');
+    linkTemporal.href = rutaCV;
+    linkTemporal.download = nombreCV;
+    document.body.appendChild(linkTemporal);
+    linkTemporal.click();
+    document.body.removeChild(linkTemporal);
+}
