@@ -17,11 +17,14 @@ function seleccionar() {
     
 }
 // funcion que aplica las animaciones en las habilidades//
-function efectoHabilidades(){
+var clasesAgregadas = false;
+
+function efectoHabilidades() {
     var skills = document.getElementById("skills");
-    var distancia_skills = window.innerHeight = skills.getBoundingClientRect().top;
-    if (distancia_skills >= 300){
-        let habilidades = document.getElementsByClassName("progreso")
+    var distancia_skills = skills.getBoundingClientRect().top;
+    
+    if (distancia_skills <= window.innerHeight - 300 && !clasesAgregadas) {
+        let habilidades = document.getElementsByClassName("progreso");
         habilidades[0].classList.add("javascript");
         habilidades[1].classList.add("htmlcss");
         habilidades[2].classList.add("photoshop");
@@ -30,32 +33,15 @@ function efectoHabilidades(){
         habilidades[5].classList.add("trabajoenequipo");
         habilidades[6].classList.add("creatividad");
         habilidades[7].classList.add("proactivo");
+
+        // Marcar que las clases ya fueron agregadas
+        clasesAgregadas = true;
+    } else if (distancia_skills > window.innerHeight - 300) {
+        // Reiniciar la variable de estado si el usuario vuelve a desplazarse hacia arriba
+        clasesAgregadas = false;
     }
 }
 
-//detecto el scrooling para aplicar las animaciones en la barra de habilidades//
-
-window.onscroll = function(){
-    efectoHabilidades()
-}
-document.addEventListener('DOMContentLoaded', function () {
-    // Obtén el botón y agrega un evento de clic
-    var botonDescargarCV = document.getElementById('descargarCV');
-    botonDescargarCV.addEventListener('click', descargarCV);
-});
-
-function descargarCV() {
-    // Reemplaza "Tu_CV_Nombre.pdf" con el nombre correcto de tu CV
-    var nombreCV = 'Hector_Ricardo_Lopez_Pepa_CV.pdf';
-
-    // La ruta al CV relativa al HTML
-    var rutaCV = 'img/Hector_Ricardo_Lopez_Pepa_CV.pdf' + nombreCV;
-
-    // Crea un elemento <a> temporal y simula un clic para iniciar la descarga
-    var linkTemporal = document.createElement('a');
-    linkTemporal.href = rutaCV;
-    linkTemporal.download = nombreCV;
-    document.body.appendChild(linkTemporal);
-    linkTemporal.click();
-    document.body.removeChild(linkTemporal);
+window.onscroll = function() {
+    efectoHabilidades();
 }
